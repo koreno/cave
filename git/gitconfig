@@ -1,33 +1,24 @@
-[user]
-	name = Ofer Koren
-	email = koreno@gmail.com
-[core]
-	excludesfile = /Users/koreno/.gitignore
 
-# [difftool "sourcetree"]
-#	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-#	path = 
-# [mergetool "sourcetree"]
-# 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-#	trustExitCode = true
+[user]
+    name = Ofer Koren
+    email = koreno@gmail.com
+[core]
+    excludesfile = /Users/koreno/.gitignore
+	editor = subl -n -w
+    # editor = nano
 
 [push]
-	default = simple
+    default = simple
 
 [alias]
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%aN%Creset' --abbrev-commit --date=relative
- 	inject = "!f() { HASH=$1; shift; git commit -m \"fixup! $HASH\" $* && git stash && git rebase $HASH^^ -i --autosquash && git stash pop; }; f"
-	latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:relative) %(refname:short)'
-	
- # trash=!git add . && git commit -m 'trash' && git reset --hard HEAD^
- # propose=!git push origin +HEAD:$USER/proposed/$(git-symbolic-ref HEAD | sed 's/^refs\/heads\///')
- # unpropose=!git push origin +:$USER/proposed/$(git-symbolic-ref HEAD | sed 's/^refs\/heads\///')
- # unbranch=!export _current=$(git-symbolic-ref HEAD | sed 's/^refs\/heads\///') && git checkout master && git branch -d $_current
- # fin=!git unpropose && git unbranch gaccept=!export _current=$(git-symbolic-ref HEAD | sed 's/^refs\/heads\///') && git checkout master && git merge $_current && git push origin +:$USER# proposed/$_current && git branch -d $_current
+    lg = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)%aN%Creset' --abbrev-commit
+    inject = "!f() { set -e; HASH=$(git rev-parse $1); shift; git commit -m \"fixup! $HASH\" $@; [ -n \"$(git diff-files)\" ] && git stash && DIRTY=1; git rebase $HASH^ -i --autosquash; [ -n \"$DIRTY\" ] && git stash pop;}; f"
+    latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:relative) %(refname:short)'
 
 [merge]
     keepBackup = false;
     tool = p4merge
+	conflictstyle = diff3
 [mergetool]
     prompt = false
 [mergetool "p4merge"]
@@ -48,3 +39,5 @@
 
 
 
+[rerere]
+    enabled = false

@@ -30,7 +30,7 @@ ZSH_THEME="jreese"
 # DISABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -48,7 +48,7 @@ ZSH_THEME="jreese"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git sublime python pyenv)
+plugins=(git sublime python pyenv jira colored-man-pages colorize)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zprofile
@@ -56,20 +56,26 @@ source $HOME/.zprofile
 # User configuration
 
 alias gs="git status"
-alias gmstr="git checkout master"
+alias gmstr="git checkout v/$WEKA_CURRENT_VERSION"
+alias gmstr2="git checkout v/$WEKA_NEXT_VERSION"
 alias glg="git lg"
 alias gch="gitter checkout"
 alias gd="git diff"
+alias gitup="git rebase HEAD^ --onto origin/\`python3 -c 'import version_info as V; print(V.VERSION_PREFIX + V.BASE_VERSION)'\`"
 alias dc=cd
-unalias gdc
+alias ussh="ssh -lubuntu"
+alias t=~/Sources/tekapp/tekapp
 
 export PATH="$HOME/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:$PATH"
 setopt interactivecomments
 
+export WEKAPP_PATH="$HOME/Sources/wekapp"
+alias wp="pushd \$WEKAPP_PATH"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -83,3 +89,6 @@ fi
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
