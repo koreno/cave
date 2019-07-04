@@ -56,8 +56,8 @@ source $HOME/.zprofile
 # User configuration
 
 alias gs="git status"
-alias gmstr="git checkout v/$WEKA_CURRENT_VERSION"
-alias gmstr2="git checkout v/$WEKA_NEXT_VERSION"
+alias gmstr="git checkout v/$REPO_CURRENT_VERSION"
+alias gmstr2="git checkout v/$REPO_NEXT_VERSION"
 alias glg="git lg"
 alias gch="gitter checkout"
 alias gd="git diff"
@@ -66,7 +66,7 @@ alias dc=cd
 alias ussh="ssh -lubuntu"
 alias t=~/Sources/tekapp/tekapp
 
-export PATH="$HOME/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 setopt interactivecomments
 
 export WEKAPP_PATH="$HOME/Sources/wekapp"
