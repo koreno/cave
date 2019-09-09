@@ -1,0 +1,43 @@
+
+[user]
+    name = Ofer Koren
+    email = koreno@gmail.com
+[core]
+    excludesfile = /Users/koreno/.gitignore
+    editor = nano
+	# editor = subl -n -w
+
+[push]
+    default = simple
+
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)%aN%Creset' --abbrev-commit
+    inject = "!f() { set -e; HASH=$(git rev-parse $1); shift; git commit -m \"fixup! $HASH\" $@; [ -n \"$(git diff-files)\" ] && git stash && DIRTY=1; git rebase $HASH^ -i --autosquash; [ -n \"$DIRTY\" ] && git stash pop;}; f"
+    latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:relative) %(refname:short)'
+    with = "!f() { set -e; BRANCH=$1; git checkout -B TMP; git merge $BRANCH --commit -m \"merge $BRANCH\"; }; f"
+[merge]
+    keepBackup = false;
+    tool = p4merge
+	conflictstyle = diff3
+[mergetool]
+    prompt = false
+[mergetool "p4merge"]
+    cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
+[diff]
+    tool = p4merge
+[difftool]
+    prompt = false
+[difftool "p4merge"]
+    cmd = p4merge "$LOCAL" "$REMOTE"
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
+
+
+
+
+[rerere]
+    enabled = false
