@@ -12,9 +12,14 @@
 
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)%aN%Creset' --abbrev-commit
-    inject = "!f() { set -e; HASH=$(git rev-parse $1); shift; git commit -m \"fixup! $HASH\" $@; [ -n \"$(git diff-files)\" ] && git stash && DIRTY=1; git rebase $HASH^ -i --autosquash; [ -n \"$DIRTY\" ] && git stash pop;}; f"
     latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:relative) %(refname:short)'
     with = "!f() { set -e; BRANCH=$1; git checkout -B TMP; git merge $BRANCH --commit -m \"merge $BRANCH\"; }; f"
+    mswap = "!f() { set -xe; MSG=$(git log -1 --pretty=%B); git reset --hard $(git commit-tree -p HEAD^2 -p HEAD^1 -m \"$MSG\" \"HEAD^{tree}\"); }; f"
+    base = log -1 --merges --pretty=format:"%h" --no-patch
+    find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+    show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+    start = "!f() { DEFAULT=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}); git checkout -b $1 -t ${2-$DEFAULT}; }; f"
+    finish = "!f() { BRANCH=`git rev-parse --abbrev-ref HEAD`; git checkout origin/master; git branch -d ${*-$BRANCH}; }; f"
 [merge]
     keepBackup = false;
     tool = p4merge
@@ -41,3 +46,7 @@
 
 [rerere]
     enabled = false
+[sequence]
+	editor = interactive-rebase-tool
+[merge "ours"]
+	driver = true

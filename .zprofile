@@ -87,3 +87,7 @@ export LC_ADDRESS=en_US.UTF-8
 export LC_TELEPHONE=en_US.UTF-8
 export LC_MEASUREMENT=en_US.UTF-8
 export LC_IDENTIFICATION=en_US.UTF-8
+
+export ANSIBLE_VAULT_IDENTITY_LIST=dev@~/.vault_dev,prod@~/.vault_prod
+export GITLAB_ACCESS_TOKEN=E8zT7Foo8gqXUsrxVhLP
+

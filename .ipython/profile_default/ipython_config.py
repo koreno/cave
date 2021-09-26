@@ -29,18 +29,7 @@
 #c.InteractiveShellApp.exec_files = []
 
 ## lines of code to run at IPython startup.
-c.InteractiveShellApp.exec_lines = ["import sys, os; print('- imported sys, os')", """
-try:
-	if os.getenv("GEVENT", "f").lower()[0] in "1ty":
-		from easypy.gevent import apply_patch
-		apply_patch()
-		print('- applied gevent')
-	from easypy.bunch import Bunch
-	from easypy.concurrency import MultiObject
-	print('- imported Bunch, MultiObject')
-except ImportError:
-	raise
-"""]
+# c.InteractiveShellApp.exec_lines = []
 
 
 ## A list of dotted module names of IPython extensions to load.

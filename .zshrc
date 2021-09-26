@@ -69,20 +69,13 @@ alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 export PATH="$HOME/bin:$PATH"
 setopt interactivecomments
 
-export WEKAPP_PATH="$HOME/Sources/wekapp"
-alias wp="pushd \$WEKAPP_PATH"
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nano'
-else
-  export EDITOR='nano'
-fi
+export EDITOR='nano'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -95,3 +88,7 @@ bindkey "${terminfo[kend]}" end-of-line
 
 # added by travis gem
 [ -f /home/ofer/.travis/travis.sh ] && source /home/ofer/.travis/travis.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/home/ofer/Sources/git-fuzzy/bin:$PATH"
+export PATH="$PATH:/home/ofer/Sources/infra/user-scripts"
